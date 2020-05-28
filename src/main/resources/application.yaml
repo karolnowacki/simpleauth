@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: simpleauth
+  datasource:
+    name: authserviceDS
+    url: "jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1"
+    username:
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: "create"
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.H2Dialect"
+
+server:
+  port : 8061
+
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG
