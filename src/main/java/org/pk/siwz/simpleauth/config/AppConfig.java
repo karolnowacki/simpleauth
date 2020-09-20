@@ -1,21 +1,25 @@
 package org.pk.siwz.simpleauth.config;
 
-import org.pk.siwz.simpleauth.data.ApplicationRepository;
-import org.pk.siwz.simpleauth.data.model.Application;
+import org.pk.siwz.simpleauth.data.UserRepository;
+import org.pk.siwz.simpleauth.data.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class AppConfig {
 
     @Autowired
-    ApplicationRepository applicationRepository;
+    UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Bean
     public void init() {
-        if (!applicationRepository.existsByAppId("authservice")) {
-            applicationRepository.save(new Application("authservice"));
+        if (userRepository.count() < 1) {
+            userRepository.save(new User(null, "admin@localhost", passwordEncoder.encode("admin"), User.Role.ADMIN));
         }
     }
 
